@@ -1,0 +1,6 @@
+I:\mobirate test\pentamino_game\pentamino_game\bin\Debug\pentamino_game.exe.config
+I:\mobirate test\pentamino_game\pentamino_game\bin\Debug\pentamino_game.exe
+I:\mobirate test\pentamino_game\pentamino_game\bin\Debug\pentamino_game.pdb
+I:\mobirate test\pentamino_game\pentamino_game\obj\Debug\pentamino_game.csprojResolveAssemblyReference.cache
+I:\mobirate test\pentamino_game\pentamino_game\obj\Debug\pentamino_game.exe
+I:\mobirate test\pentamino_game\pentamino_game\obj\Debug\pentamino_game.pdb
