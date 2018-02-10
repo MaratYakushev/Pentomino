@@ -45,16 +45,13 @@ namespace pentamino_game
 
         private Nodes.HeaderNode ShortColumn()
         {            
-            int k = 1;
+            
             Nodes.HeaderNode column = null;
             int min = int.MaxValue;
             
             for(Nodes.HeaderNode col_header = (Nodes.HeaderNode)header_root.right; col_header!= header_root; col_header = (Nodes.HeaderNode)col_header.right)
             {
-                Console.WriteLine(k + " Column header is " + ((pentamino_game.PentaminoSolver.NodeCoord)col_header.data).x + " " + ((pentamino_game.PentaminoSolver.NodeCoord)col_header.data).y+
-                    " have " + col_header.count_nodes); k++;
-
-                if (col_header.count_nodes < min)
+                if ((col_header.count_nodes < min) && (col_header.isNodeID == false))
                 {                 
                     min = col_header.count_nodes;
                     column = col_header;
@@ -71,10 +68,18 @@ namespace pentamino_game
                 return true;
             }
 
-            if(headers_columns.Count == 0)
+            bool flag = true;
+
+            for(var head = header_root.right; head != header_root; head = head.right)
             {
-                return true;
+                if (((Nodes.HeaderNode)head).isNodeID == false)
+                {
+                    flag = false;
+                }
             }
+
+            if (flag)
+                return true;
 
             Nodes.HeaderNode header = ShortColumn();
 

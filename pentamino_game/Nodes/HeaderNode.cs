@@ -9,6 +9,7 @@ namespace Nodes
     class HeaderNode : Node
     {
         public int count_nodes;
+        public bool isNodeID = false;
 
         public HeaderNode()
         {

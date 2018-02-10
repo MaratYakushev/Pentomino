@@ -8,6 +8,19 @@ namespace pentamino_game
 {
     class Figures
     {
+
+       public class FigureItem
+        {
+            public int[,] figure;
+            public int figure_id;
+
+            public FigureItem(int[,] figure, int id)
+            {
+                this.figure = figure;
+                this.figure_id = id;
+            }
+        }
+
         public static int[,] f_Z_base = { { -1, -1 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 1, 1 } };
         public static int[,] f_I_base = { { -2, 0 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 2, 0 } };
 
@@ -159,72 +172,72 @@ namespace pentamino_game
 
 
 
-        public static List<int[,]> getFigures()
+        public static List<FigureItem> GetFigures()
         {
-            List<int[,]> list = new List<int[,]>();
-            list.Add(V_R_1);
-                list.Add(V_R_2);
-                list.Add(V_R_3);
-                list.Add(V_R_4);
-                list.Add(N_R_1);
-                list.Add(N_F_1);
-                list.Add(N_R_2);
-                list.Add(N_F_2);
-                list.Add(N_R_3);
-                list.Add(N_F_3);
-                list.Add(N_R_4);
-                list.Add(N_F_4);
-                list.Add(P_R_1);
-                list.Add(P_F_1);
-                list.Add(P_R_2);
-                list.Add(P_F_2);
-                list.Add(P_R_3);
-                list.Add(P_F_3);
-                list.Add(P_R_4);
-                list.Add(P_F_4);
-                list.Add(U_R_1);
-                list.Add(U_R_2);
-                list.Add(U_R_3);
-                list.Add(U_R_4);
-                list.Add(Y_R_1);
-                list.Add(Y_F_1);
-                list.Add(Y_R_2);
-                list.Add(Y_F_2);
-                list.Add(Y_R_3);
-                list.Add(Y_F_3);
-                list.Add(Y_R_4);
-                list.Add(Y_F_4);
-                list.Add(W_R_1);
-                list.Add(W_F_1);
-                list.Add(W_R_2);
-                list.Add(W_F_2);
-                list.Add(X_R_1);
-                list.Add(T_R_1);
-                list.Add(T_F_1);
-                list.Add(T_R_2);
-                list.Add(T_F_2);
-                list.Add(L_R_1);
-                list.Add(L_F_1);
-                list.Add(L_R_2);
-                list.Add(L_F_2);
-                list.Add(L_R_3);
-                list.Add(L_F_3);
-                list.Add(L_R_4);
-                list.Add(L_F_4);
-                list.Add(F_R_1);
-                list.Add(F_F_1);
-                list.Add(F_R_2);
-                list.Add(F_F_2);
-                list.Add(F_R_3);
-                list.Add(F_F_3);
-                list.Add(F_R_4);
-                list.Add(F_F_4);
-                list.Add(Z_R_1);
-                list.Add(Z_F_1);
-                list.Add(Z_R_2);
-                list.Add(Z_F_2);
-                list.Add(I_R_1);
-                list.Add(I_R_2);
+            List<FigureItem> list = new List<FigureItem>();
+            list.Add(new FigureItem(V_R_1,0));
+            list.Add(new FigureItem(V_R_2,0));
+            list.Add(new FigureItem(V_R_3,0));
+            list.Add(new FigureItem(V_R_4,0));
+            list.Add(new FigureItem(N_R_1,1));
+            list.Add(new FigureItem(N_F_1,1));
+            list.Add(new FigureItem(N_R_2,1));
+            list.Add(new FigureItem(N_F_2,1));
+            list.Add(new FigureItem(N_R_3,1));
+            list.Add(new FigureItem(N_F_3,1));
+            list.Add(new FigureItem(N_R_4,1));
+            list.Add(new FigureItem(N_F_4,1));
+            list.Add(new FigureItem(P_R_1,2));
+            list.Add(new FigureItem(P_F_1,2));
+            list.Add(new FigureItem(P_R_2,2));
+            list.Add(new FigureItem(P_F_2,2));
+            list.Add(new FigureItem(P_R_3,2));
+            list.Add(new FigureItem(P_F_3,2));
+            list.Add(new FigureItem(P_R_4,2));
+            list.Add(new FigureItem(P_F_4,2));
+            list.Add(new FigureItem(U_R_1,3));
+            list.Add(new FigureItem(U_R_2,3));
+            list.Add(new FigureItem(U_R_3,3));
+            list.Add(new FigureItem(U_R_4,3));
+            list.Add(new FigureItem(Y_R_1,4));
+            list.Add(new FigureItem(Y_F_1,4));
+            list.Add(new FigureItem(Y_R_2,4));
+            list.Add(new FigureItem(Y_F_2,4));
+            list.Add(new FigureItem(Y_R_3,4));
+            list.Add(new FigureItem(Y_F_3,4));
+            list.Add(new FigureItem(Y_R_4,4));
+            list.Add(new FigureItem(Y_F_4,4));
+            list.Add(new FigureItem(W_R_1,5));
+            list.Add(new FigureItem(W_F_1,5));
+            list.Add(new FigureItem(W_R_2,5));
+            list.Add(new FigureItem(W_F_2,5));
+            list.Add(new FigureItem(X_R_1,6));
+            list.Add(new FigureItem(T_R_1,7));
+            list.Add(new FigureItem(T_F_1,7));
+            list.Add(new FigureItem(T_R_2,7));
+            list.Add(new FigureItem(T_F_2,7));
+            list.Add(new FigureItem(L_R_1,8));
+            list.Add(new FigureItem(L_F_1,8));
+            list.Add(new FigureItem(L_R_2,8));
+            list.Add(new FigureItem(L_F_2,8));
+            list.Add(new FigureItem(L_R_3,8));
+            list.Add(new FigureItem(L_F_3,8));
+            list.Add(new FigureItem(L_R_4,8));
+            list.Add(new FigureItem(L_F_4,8));
+            list.Add(new FigureItem(F_R_1,9));
+            list.Add(new FigureItem(F_F_1,9));
+            list.Add(new FigureItem(F_R_2,9));
+            list.Add(new FigureItem(F_F_2,9));
+            list.Add(new FigureItem(F_R_3,9));
+            list.Add(new FigureItem(F_F_3,9));
+            list.Add(new FigureItem(F_R_4,9));
+            list.Add(new FigureItem(F_F_4,9));
+            list.Add(new FigureItem(Z_R_1,10));
+            list.Add(new FigureItem(Z_F_1,10));
+            list.Add(new FigureItem(Z_R_2,10));
+            list.Add(new FigureItem(Z_F_2,10));
+            list.Add(new FigureItem(I_R_1,11));
+            list.Add(new FigureItem(I_R_2,11));
             return list;
         }
     }

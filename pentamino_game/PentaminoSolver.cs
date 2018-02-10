@@ -10,6 +10,8 @@ namespace pentamino_game
     class PentaminoSolver
     {
 
+        
+
         public class NodeCoord
         {
             public int x;
@@ -21,15 +23,15 @@ namespace pentamino_game
                 NodeCoord o = (NodeCoord)obj;
                 return (o.x == x) && (o.y == y);
             }
-
-            // override object.GetHashCode
-            public override int GetHashCode()
-            {
-                // TODO: write your implementation of GetHashCode() here
-                throw new NotImplementedException();
-                return base.GetHashCode();
-            }
+          
         }
+
+        public class FigureId
+        {
+            public int id;
+        }
+
+        FigureId[] figure_id;
 
         private NodeCoord[,] node_coord;
         int[,] board_array;
@@ -60,15 +62,19 @@ namespace pentamino_game
             char key = 'A';
             foreach(Nodes.Node sol in dlx.SolutionArr)
             {
-                Console.WriteLine(((NodeCoord)sol.data).x + " and " + ((NodeCoord)sol.data).y);
+                //Console.WriteLine(((NodeCoord)sol.data).x + " and " + ((NodeCoord)sol.data).y);
                 Nodes.Node node = sol;
                 do
                 {
-                    NodeCoord coord = ((NodeCoord)node.data);
-                    if(coord != null)
+                    if(node.data.GetType() == typeof(NodeCoord))
                     {
-                        solution_res[coord.x, coord.y] = key;
+                        NodeCoord coord = ((NodeCoord)node.data);
+                        if (coord != null)
+                        {
+                            solution_res[coord.x, coord.y] = key;
+                        }
                     }
+                    
                     node = node.right;
                 } while (node != sol);
                 key++;
@@ -115,7 +121,7 @@ namespace pentamino_game
             }
 
 
-            dlx.CreateHeadersNodes(headerCount);
+            dlx.CreateHeadersNodes(headerCount + 12);
             Nodes.Node header_node = dlx.header_root.right;
             int count = 0;
             for (int i = 0; i < board_array.GetLength(0); i++)
@@ -131,12 +137,22 @@ namespace pentamino_game
                 }
             }
 
-
-            
-
-            foreach (int[,] fig in Figures.getFigures())
+            figure_id = new FigureId[12];
+            for(int i = 0; i < 12; i++)
             {
-                int[,] cur_figures = (int[,])fig.Clone();
+                FigureId figure_node_id = new FigureId() { id = i };
+                header_node.data = figure_node_id;
+                ((Nodes.HeaderNode)header_node).isNodeID = true;
+                header_node = header_node.right;
+                figure_id[i] = figure_node_id;
+            }
+            
+ 
+            List<Figures.FigureItem> list = Figures.GetFigures();
+            for (int f = 0; f < list.Count; f++)
+            {
+                int[,] cur_figures = (int[,])list[f].figure.Clone();
+                int figure_id = list[f].figure_id;
                 for (int i = 0; i < board_array.GetLength(0); i++)
                 {
                     for (int j = 0; j < board_array.GetLength(1); j++)
@@ -146,13 +162,15 @@ namespace pentamino_game
                             NodeCoord[] c = CheckFigures(cur_figures, i, j);
                             if (c != null)
                             {
-                                AddToStructureMatrix(cur_figures, i, j, c);
+                                AddToStructureMatrix(cur_figures, figure_id,i, j, c);                                
                             }
 
                         }
                     }
                 }
             }
+            
+          
 
         }
 
@@ -183,14 +201,14 @@ namespace pentamino_game
                     break;
                 }
 
-                coord[dot] = new NodeCoord() { x = row, y = col };
+                coord[dot] = node_coord[row, col];
 
             }
 
             return flag ? coord : null;
         }
 
-        private void AddToStructureMatrix(int[,] figure, int i, int j, NodeCoord[] coord)
+        private void AddToStructureMatrix(int[,] figure, int figure_id_, int i, int j, NodeCoord[] coord)
         {
             int count = 0;
             ArrayList rows = new ArrayList();
@@ -198,7 +216,7 @@ namespace pentamino_game
             {
                 foreach (NodeCoord cord in coord)
                 {
-                    if (header.data.Equals(cord))
+                    if (header.data == cord)
                     {
                         Nodes.Node newNode = new Nodes.Node();
                         newNode.data = cord;
@@ -215,7 +233,30 @@ namespace pentamino_game
                 }
             }
 
+            FigureId figureId = null;
+            for(int it = 0; it < figure_id.Length; it++)
+            {
+                if(figure_id[it].id == figure_id_)
+                {
+                    figureId = figure_id[it];
+                    break;
+                }
+            }
+            int c = 0;
+            foreach (Nodes.HeaderNode header in dlx.headers_columns)
+            {
+                if(header.data == figureId)
+                {
             
+                    Nodes.Node new_node = new Nodes.Node();
+                    new_node.data = figureId;
+                    header.AddNode(new_node);
+                    rows.Add(new_node);
+                    break;
+                }
+                c++;
+            }
+
 
             Nodes.Node first_node = null;
             Nodes.Node last_node = null;
@@ -224,14 +265,14 @@ namespace pentamino_game
             {
                 foreach (Nodes.Node row in rows)
                 {
-                    if ((first_node == null) && (row.data.Equals(node.data)))
+                    if ((first_node == null) && (row.data == node.data))
                     {
                         first_node = row;
                         last_node = row;
                         continue;
                     }
 
-                    if ((first_node != null) && (row.data.Equals(node.data)))
+                    if ((first_node != null) && (row.data == node.data))
                     {
                         
                         last_node.right = row;
