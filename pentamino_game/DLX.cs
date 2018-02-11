@@ -25,6 +25,7 @@ namespace pentamino_game
         int n;
         int d;
 
+        //Метод создания корневых вершин
         public void CreateHeadersNodes(int count)
         {
             header_root = new Nodes.HeaderNode();
@@ -43,6 +44,7 @@ namespace pentamino_game
             }
         }
 
+        //Метод получения столбцы содержаший наименьшее кол-во единиц 
         private Nodes.HeaderNode ShortColumn()
         {            
             
@@ -61,6 +63,7 @@ namespace pentamino_game
             return column;
         }
 
+        //Алгоритм Решения задачи с использованием Dancing Links
         public bool Solve()
         {
             if(header_root.right == header_root)
@@ -119,7 +122,7 @@ namespace pentamino_game
         }
 
 
-
+        //Удаления корневой вершины
         private void Remove(Nodes.HeaderNode header)
         {
             header.right.left = header.left;
@@ -136,6 +139,7 @@ namespace pentamino_game
             }
         }
 
+        //Восстановление корневой вершины
         private void Restore(Nodes.HeaderNode header)
         {
 

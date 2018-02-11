@@ -39,6 +39,7 @@ namespace pentamino_game
             Console.ReadKey();
         }
 
+        //Запись решения в файл
         static void WriteFile(char[,] solution, string path)
         {
            
@@ -55,6 +56,7 @@ namespace pentamino_game
             }
         }
 
+        //Чтения картинки из файла и преобразование ее в удобный массив из 1 и 0
         static int[,] ReadFile(string path)
         {
             string str;

@@ -86,6 +86,7 @@ namespace pentamino_game
             print();
         }
 
+        //Вывод решения на консоль
         void print()
         {
             for (int i = 0; i < solution_res.GetLength(0); i++)
@@ -98,6 +99,8 @@ namespace pentamino_game
             }
         }
 
+
+        //Метод создания структуры матрицы для Алгоритма-Х
         public void CreateMatrixStructur()
         {
             int headerCount = 0;
@@ -113,11 +116,9 @@ namespace pentamino_game
                     }
                 }
             }
-
-          
-
-
+            
             dlx.CreateHeadersNodes(headerCount + 12);
+
             Nodes.Node header_node = dlx.header_root.right;
             int count = 0;
             for (int i = 0; i < board_array.GetLength(0); i++)
@@ -171,7 +172,7 @@ namespace pentamino_game
 
         }
 
-
+        //Метод проверяющий лежит ли фигура на форме рисунка,если да возвращает все 5 точек в которых фигура лежит иначе null
         private NodeCoord[] CheckFigures(int[,] cur_figure, int i, int j)
         {
             bool flag = true;
@@ -205,10 +206,13 @@ namespace pentamino_game
             return flag ? coord : null;
         }
 
+
+        //Добавления определенного положения фигуры в структуру матрицы, создаем Node для столбца
         private void AddToStructureMatrix(int[,] figure, int figure_id_, int i, int j, NodeCoord[] coord)
         {
             int count = 0;
             ArrayList rows = new ArrayList();
+            //Добавляем Node в определенный столбец
             foreach (Nodes.HeaderNode header in dlx.headers_columns)
             {
                 foreach (NodeCoord cord in coord)
@@ -254,7 +258,8 @@ namespace pentamino_game
                 c++;
             }
 
-
+            
+            //Связываем Node с левым и правым Node
             Nodes.Node first_node = null;
             Nodes.Node last_node = null;
 

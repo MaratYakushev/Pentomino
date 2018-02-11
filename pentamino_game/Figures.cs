@@ -9,6 +9,7 @@ namespace pentamino_game
     class Figures
     {
 
+        //Класс, который хранит массив определенного положения фигуры и его идентификатор
        public class FigureItem
         {
             public int[,] figure;
@@ -20,6 +21,8 @@ namespace pentamino_game
                 this.figure_id = id;
             }
         }
+
+        //Массивы всех возможных положений фигур
 
         public static int[,] f_Z_base = { { -1, -1 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 1, 1 } };
         public static int[,] f_I_base = { { -2, 0 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 2, 0 } };
