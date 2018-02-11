@@ -18,21 +18,44 @@ namespace pentamino_game
 
         static void Main(string[] args)
         {
-            int[,] figure_Z = {   { -1, -1 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 1, 1 } };
-            int[,] figure_I = { { -2, 0 }, { -1, 0 }, { 0, 0 }, { 1, 0 }, { 2, 0 } };
 
-            int[,] cur_figure = figure_I;
- 
-            int[,] arr = ReadFile();
+            Console.WriteLine("Введите путь к файлу с картинкой");
+            string pict_path = Console.ReadLine();
 
+
+            Console.WriteLine("Введите путь сохранения решения");
+            string sol_path = Console.ReadLine();
+
+            int[,] arr = ReadFile(pict_path);
             PentaminoSolver solver = new PentaminoSolver(arr);
             solver.PentaminoSolve();
-            Console.WriteLine("Done");
+            char[,] solution = solver.solution_res;
+            if(solution != null)
+            {
+                WriteFile(solver.solution_res, sol_path);
+                Console.WriteLine("Готово!");
+            }
 
             Console.ReadKey();
         }
 
-        static int[,] ReadFile()
+        static void WriteFile(char[,] solution, string path)
+        {
+           
+            using(StreamWriter sw = new StreamWriter(path))
+            {
+                for(int i = 0; i < solution.GetLength(0); i++)
+                {
+                    for(int j= 0; j < solution.GetLength(1); j++)
+                    {
+                        sw.Write(solution[i, j] + " ");
+                    }
+                    sw.WriteLine();
+                }     
+            }
+        }
+
+        static int[,] ReadFile(string path)
         {
             string str;
             int rows = 0;
@@ -41,7 +64,7 @@ namespace pentamino_game
             StreamReader file = null;
             try
             {
-                file = new StreamReader(@"I:\mobirate test\files\3.in");
+                file = new StreamReader(path);
             }
             catch (Exception e)
             {

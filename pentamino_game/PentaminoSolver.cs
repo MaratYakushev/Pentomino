@@ -32,7 +32,7 @@ namespace pentamino_game
         }
 
         FigureId[] figure_id;
-
+        private int rows_count = 0;
         private NodeCoord[,] node_coord;
         int[,] board_array;
         private DLX dlx;
@@ -45,11 +45,16 @@ namespace pentamino_game
             CreateMatrixStructur();
         }
 
-        char[,] solution_res;
+        public char[,] solution_res { get; private set; }
 
         public void PentaminoSolve()
         {
-            Console.WriteLine("Solve is " + dlx.Solve() + " " + dlx.SolutionArr.Count);
+            bool isSolve = dlx.Solve();
+            if (!isSolve || rows_count == 0)
+            {
+                Console.WriteLine("Решений нет");
+                return;
+            }
             solution_res = new char[board_array.GetLength(0), board_array.GetLength(1)];
 
             for(int i = 0; i < solution_res.GetLength(0); i++)
@@ -61,8 +66,7 @@ namespace pentamino_game
             }
             char key = 'A';
             foreach(Nodes.Node sol in dlx.SolutionArr)
-            {
-                //Console.WriteLine(((NodeCoord)sol.data).x + " and " + ((NodeCoord)sol.data).y);
+            {              
                 Nodes.Node node = sol;
                 do
                 {
@@ -109,16 +113,8 @@ namespace pentamino_game
                     }
                 }
             }
-            Console.WriteLine();
-            for (int i = 0; i < node_coord.GetLength(0); i++)
-            {
-                for(int j = 0; j < node_coord.GetLength(1); j++)
-                {
-                    if(node_coord[i, j]!=null)
-                    Console.Write(node_coord[i, j].x + "  "+ node_coord[i, j].y + " || ");
-                }
-                Console.WriteLine();
-            }
+
+          
 
 
             dlx.CreateHeadersNodes(headerCount + 12);
@@ -162,7 +158,8 @@ namespace pentamino_game
                             NodeCoord[] c = CheckFigures(cur_figures, i, j);
                             if (c != null)
                             {
-                                AddToStructureMatrix(cur_figures, figure_id,i, j, c);                                
+                                AddToStructureMatrix(cur_figures, figure_id,i, j, c);
+                                rows_count++;
                             }
 
                         }
@@ -222,7 +219,7 @@ namespace pentamino_game
                         newNode.data = cord;
                         header.AddNode(newNode);
                         rows.Add(newNode);
-                        Console.WriteLine("Item " + ((NodeCoord)header.data).x + " " + ((NodeCoord)header.data).y);
+                      
                         count++;
                         break;
                     }

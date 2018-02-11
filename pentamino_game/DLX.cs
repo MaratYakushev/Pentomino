@@ -91,18 +91,18 @@ namespace pentamino_game
             while (node != header)
             {
                 solution_array.Add(node);
-                n++;
+                
                 
                 for (Nodes.Node node_it = node.right; node_it != node; node_it = node_it.right)
                 {
                     Remove(node_it.header);
                 }
-                d++;
+               
                 if (Solve())
                 {
                     return true;
                 }
-                d--;
+               
                 solution_array.RemoveAt(solution_array.Count - 1);
                 header = node.header;
 
